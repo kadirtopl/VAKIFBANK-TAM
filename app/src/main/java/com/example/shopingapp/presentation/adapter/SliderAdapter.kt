@@ -40,7 +40,7 @@ context=parent.context
     }
 
     override fun onBindViewHolder(holder: SliderAdapter.SliderViewholder, position: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun getItemCount(): Int =sliderItems.size
