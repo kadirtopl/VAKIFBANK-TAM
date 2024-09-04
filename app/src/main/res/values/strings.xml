@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">project200.2</string>
+    <string name="action_settings">Ayarlar</string>
+    <!-- Navigasyon için fragmentlerde kullanılan metinler -->
+    <string name="first_fragment_label">Birinci Fragment</string>
+    <string name="second_fragment_label">İkinci Fragment</string>
+    <string name="next">Sonraki</string>
+    <string name="previous">Önceki</string>
+    <string name="intro_title">Dijital Mağazaya <font color="#FFB90F">Hoş Geldiniz</font>\n ve<font color="#FFB90F"> En Son Teknolojiye </font>Giriş</string>
+    <string name="intro_sub_title">Geniş bir dijital ürün yelpazesi keşfetmek için giriş yapın.\n Hesabınız yok mu?\n Şimdi kayıt olun ve kesintisiz bir \nve güvenli alışveriş deneyiminin tadını çıkarın</string>
+
+    <string name="signing">Zaten bir hesabınız var mı?<font color="#FFB90F"> Giriş Yapın</font></string>
+
+    <string name="let_s_get_started">Hadi Başlayalım</string>
+    <string name="recommendation">Tavsiye</string>
+    <string name="see_all">Hepsini Gör</string>
+    <string name="profile">Profil</string>
+    <string name="my_order">Siparişim</string>
+    <string name="wishlist">İstek Listesi</string>
+    <string name="cart">Sepet</string>
+    <string name="explorer">Keşfet</string>
+    <string name="my_cart">Sepetim</string>
+    <string name="subtotal">Ara Toplam</string>
+    <string name="fee_delivery">Teslimat Ücreti</string>
+    <string name="total_tax">Toplam Vergi</string>
+    <string name="payment_method">Ödeme Yöntemi</string>
+    <string name="pay_cash_when_the_medicine_arrives_at_the_destination">Ürün varış noktasına ulaştığında nakit ödeme</string>
+</resources>
