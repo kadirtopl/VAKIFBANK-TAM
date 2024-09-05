@@ -40,6 +40,10 @@ context=parent.context
     }
 
     override fun onBindViewHolder(holder: SliderAdapter.SliderViewholder, position: Int) {
+        holder.setImage(sliderItems[position],context)
+        if (position==sliderItems.lastIndex-1){
+            viewPager2.post(runnable)
+        }
 
     }
 
