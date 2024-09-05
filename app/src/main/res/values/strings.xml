@@ -25,4 +25,6 @@
     <string name="total_tax">Toplam Vergi</string>
     <string name="payment_method">Ödeme Yöntemi</string>
     <string name="pay_cash_when_the_medicine_arrives_at_the_destination">Ürün varış noktasına ulaştığında nakit ödeme</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
