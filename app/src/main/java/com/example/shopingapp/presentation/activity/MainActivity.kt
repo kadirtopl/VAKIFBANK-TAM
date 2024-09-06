@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.shopingapp.R
 import com.example.shopingapp.data.model.SliderModel
 import com.example.shopingapp.databinding.ActivityMainBinding
+import com.example.shopingapp.presentation.adapter.CategoryAdapter
 import com.example.shopingapp.presentation.adapter.SliderAdapter
 import com.example.shopingapp.presentation.viewModel.MainViewModel
 
@@ -25,8 +27,22 @@ class MainActivity : BasicActivity() {
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initBanner()
+        initCategory()
 
         }
+
+    private fun initCategory() {
+binding.progressBarCategory.visibility=View.VISIBLE
+    viewModel.categories.observe(this, Observer {
+        binding.viewCategory.layoutManager=LinearLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+   binding.viewCategory.adapter=CategoryAdapter(it)
+        binding.progressBarCategory.visibility=View.GONE
+
+    }
+    )
+    viewModel.loadCategory()
+    }
+
     private fun banners(image:List<SliderModel>) {
 
         binding.viewPager2.adapter=SliderAdapter(image,binding.viewPager2)
