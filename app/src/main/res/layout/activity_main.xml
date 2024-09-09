@@ -73,7 +73,9 @@
                     android:id="@+id/viewPager2"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,7 +103,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/viewPager2"
-                    app:selectedDotColor="@color/green"
+                    app:selectedDotColor="@color/yellow"
                     tools:visibility="visible" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

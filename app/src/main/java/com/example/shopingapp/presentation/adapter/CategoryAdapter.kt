@@ -43,7 +43,7 @@ class CategoryAdapter(val items:MutableList<CategoryModel>):
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
      val  item=items[position]
-        holder.binding.tittleText.text=item.string
+        holder.binding.tittleText.text=item.title
 
 
     Glide.with(holder.itemView.context)
@@ -51,8 +51,8 @@ class CategoryAdapter(val items:MutableList<CategoryModel>):
         .into(holder.binding.pic)
 
         if(selectedPosition==position){
-            holder.binding.pic.setBackgroundResource(R.drawable.grey_bg)
-            holder.binding.mainLayout.setBackgroundResource(0)
+            holder.binding.pic.setBackgroundResource(0)
+            holder.binding.pic.setBackgroundResource(R.drawable.green_button_bg)
             ImageViewCompat.setImageTintList(
                 holder.binding.pic,
                 ColorStateList.valueOf
@@ -62,7 +62,7 @@ class CategoryAdapter(val items:MutableList<CategoryModel>):
             )
 
             holder.binding.tittleText.visibility=View.GONE
-            holder.binding.tittleText.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.white))
+            holder.binding.tittleText.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.black))
         }else{
             holder.binding.pic.setBackgroundResource(0)
             holder.binding.mainLayout.setBackgroundResource(R.drawable.grey_bg)
@@ -73,7 +73,7 @@ class CategoryAdapter(val items:MutableList<CategoryModel>):
             )
 
             holder.binding.tittleText.visibility=View.VISIBLE
-            holder.binding.tittleText.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.white))
+            holder.binding.tittleText.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.black))
 
         }
 
