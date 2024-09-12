@@ -2,36 +2,36 @@ package com.example.shopingapp.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.EventLogTags.Description
 
-data class ItemsModel (
-    var title:String="",
-    var description: String="",
-    var picUrl:ArrayList<String> = ArrayList(),
-    var model:ArrayList<String> =ArrayList(),
-    var price:Double=0.0,
-    var rating:Double=0.0,
-    var numberInCart:Int=0,
-    var showRecommended:Boolean=false,
-    var categoryId:Int=0,
+data class ItemsModel(
+    var title: String = "",
+    var description: String = "",
+    var picUrl: ArrayList<String> = ArrayList(),
+    var model: ArrayList<String> = ArrayList(),
+    var price: Double = 0.0,
+    var rating: Double = 0.0,
+    var numberInCart: Int = 0,
+    var showRecommended: Boolean = false,
+    var categoryId: Int = 0
+) : Parcelable {
 
-):Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.createStringArray() as ArrayList<String>,
-        parcel.createStringArray() as ArrayList <String>,
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.createStringArrayList() ?: ArrayList(),
+        parcel.createStringArrayList() ?: ArrayList(),
         parcel.readDouble(),
         parcel.readDouble(),
         parcel.readInt(),
         parcel.readByte() != 0.toByte(),
         parcel.readInt()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)
         parcel.writeString(description)
+        parcel.writeStringList(picUrl)
+        parcel.writeStringList(model)
         parcel.writeDouble(price)
         parcel.writeDouble(rating)
         parcel.writeInt(numberInCart)
@@ -39,9 +39,7 @@ data class ItemsModel (
         parcel.writeInt(categoryId)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<ItemsModel> {
         override fun createFromParcel(parcel: Parcel): ItemsModel {

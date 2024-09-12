@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.shopingapp.data.model.ItemsModel
 import com.example.shopingapp.databinding.ViewholderRecommendedBinding
 import com.example.shopingapp.presentation.activity.MainActivity
+import com.example.shopingapp.presentation.activity.RecommendDetailActivity
 
 class RecommendedAdapter (val items: MutableList<ItemsModel>) :
     RecyclerView.Adapter<RecommendedAdapter.Viewholder>() {
@@ -39,11 +40,10 @@ class RecommendedAdapter (val items: MutableList<ItemsModel>) :
                 .into(pic)
 
             root.setOnClickListener {
-                val intent = Intent(holder.itemView.context, MainActivity::class.java).apply {
+                val intent=Intent(holder.itemView.context,RecommendDetailActivity::class.java).apply {
                     putExtra("object", item)
                 }
-                ContextCompat.startActivity(holder.itemView.context,intent,null)
-            }
+ContextCompat.startActivity(holder.itemView.context,intent,null)            }
         }
     }
 
