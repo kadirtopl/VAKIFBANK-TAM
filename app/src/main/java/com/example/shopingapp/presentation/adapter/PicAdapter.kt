@@ -24,7 +24,7 @@ class PicAdapter(val items: MutableList<String>, private val onImageSelected: (S
         return Viewholder(binding)
     }
 
-    override fun onBindViewHolder(holder: PicAdapter.Viewholder,  position:Int) {
+    override fun onBindViewHolder(holder: PicAdapter.Viewholder, position: Int) {
         val item = items[position]
         holder.binding.pic.loadImage(item)
 
