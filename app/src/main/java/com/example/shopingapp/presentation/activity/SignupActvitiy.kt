@@ -12,7 +12,7 @@ import com.example.shopingapp.databinding.ActivityLoginBinding
 import com.example.shopingapp.databinding.ActivitySignupActvitiyBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class SignupActvitiy : AppCompatActivity() {
+class SignupActvitiy : BasicActivity() {
     private  lateinit var binding:ActivitySignupActvitiyBinding
     private  lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {

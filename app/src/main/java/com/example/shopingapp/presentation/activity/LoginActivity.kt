@@ -11,7 +11,7 @@ import com.example.shopingapp.R
 import com.example.shopingapp.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BasicActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
 

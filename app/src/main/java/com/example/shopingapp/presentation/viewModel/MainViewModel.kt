@@ -6,99 +6,123 @@ import androidx.lifecycle.ViewModel
 import com.example.shopingapp.data.model.CategoryModel
 import com.example.shopingapp.data.model.ItemsModel
 import com.example.shopingapp.data.model.SliderModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
-class MainViewModel():ViewModel() {
+// ViewModel sınıfı, kullanıcı arayüzü verilerini yönetir ve Firebase ile etkileşim sağlar
+class MainViewModel() : ViewModel() {
+    // Firebase Realtime Database örneği
     private val firebaseDatabase = FirebaseDatabase.getInstance()
+
+    // Canlı veriler için MutableLiveData nesneleri
     private val _banner = MutableLiveData<List<SliderModel>>()
     private val _category = MutableLiveData<MutableList<CategoryModel>>()
     private val _recommended = MutableLiveData<MutableList<ItemsModel>>()
 
+    // Canlı verilerin dışarıya sunulan görünümleri
     val banners: LiveData<List<SliderModel>> = _banner
     val categories: LiveData<MutableList<CategoryModel>> = _category
-    val recommnded:LiveData<MutableList<ItemsModel>> = _recommended
+    val recommended: LiveData<MutableList<ItemsModel>> = _recommended
 
-    fun loadRecommended() {
-        val Ref = firebaseDatabase.getReference("Items")
-        val query:Query=Ref.orderByChild("showRecommended").equalTo(true)
-        query.addListenerForSingleValueEvent(object :ValueEventListener{
+    // Belirli bir kategoriye ait öğeleri yükler
+    fun loadFiltered(id: String) {
+        val ref = firebaseDatabase.getReference("Items")
+
+        // `id` değerini `Double` türüne dönüştürür
+        val idDouble: Double? = id.toDoubleOrNull()
+
+        // Dönüşüm başarılıysa uygun bir sorgu oluşturur, aksi takdirde varsayılan bir değer kullanır
+        val query: Query = if (idDouble != null) {
+            ref.orderByChild("categoryId").equalTo(idDouble)
+        } else {
+            ref.orderByChild("categoryId").equalTo(0.0) // Varsayılan bir değer kullanılır
+        }
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                // Gelen verileri işleyerek MutableList oluşturur
                 val lists = mutableListOf<ItemsModel>()
                 for (childSnapshot in snapshot.children) {
-                    val list = childSnapshot.getValue(ItemsModel::class.java)
-                    if (list !== null) {
-                        lists.add(list)
-
-
+                    val item = childSnapshot.getValue(ItemsModel::class.java)
+                    if (item != null) {
+                        lists.add(item)
                     }
-
-
                 }
+                // Verileri LiveData'ya atar
                 _recommended.value = lists
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                // Hata durumunda yapılacak işlemler
             }
-
-
         })
-
     }
 
-
-
-
-    fun loadCategory() {
-        val Ref = firebaseDatabase.getReference("Category")
-        Ref.addValueEventListener(object : ValueEventListener {
+    // Önerilen öğeleri yükler
+    fun loadRecommended() {
+        val ref = firebaseDatabase.getReference("Items")
+        val query: Query = ref.orderByChild("showRecommended").equalTo(true)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                // Gelen verileri işleyerek MutableList oluşturur
+                val lists = mutableListOf<ItemsModel>()
+                for (childSnapshot in snapshot.children) {
+                    val list = childSnapshot.getValue(ItemsModel::class.java)
+                    if (list != null) {
+                        lists.add(list)
+                    }
+                }
+                // Verileri LiveData'ya atar
+                _recommended.value = lists
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Hata durumunda yapılacak işlemler
+            }
+        })
+    }
+
+    // Kategorileri yükler
+    fun loadCategory() {
+        val ref = firebaseDatabase.getReference("Category")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // Gelen verileri işleyerek MutableList oluşturur
                 val lists = mutableListOf<CategoryModel>()
                 for (childSnapshot in snapshot.children) {
                     val list = childSnapshot.getValue(CategoryModel::class.java)
-                    if (list !== null) {
+                    if (list != null) {
                         lists.add(list)
-
-
                     }
-
-
                 }
+                // Verileri LiveData'ya atar
                 _category.value = lists
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                // Hata durumunda yapılacak işlemler
             }
         })
     }
 
-
+    // Banner'ları yükler
     fun loadBanners() {
-
-        val Ref = firebaseDatabase.getReference("Banner")
-        Ref.addValueEventListener(object : ValueEventListener {
+        val ref = firebaseDatabase.getReference("Banner")
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                // Gelen verileri işleyerek MutableList oluşturur
                 val lists = mutableListOf<SliderModel>()
                 for (childSnapshot in snapshot.children) {
                     val list = childSnapshot.getValue(SliderModel::class.java)
-                    if (list !== null) {
+                    if (list != null) {
                         lists.add(list)
-
-
                     }
-
-
                 }
+                // Verileri LiveData'ya atar
                 _banner.value = lists
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                // Hata durumunda yapılacak işlemler
             }
         })
     }

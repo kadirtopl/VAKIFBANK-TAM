@@ -12,7 +12,7 @@ open class BasicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+//Tam Ekran yapmasını sağlar  Ekran Sınırlamasını kaldırır
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         }

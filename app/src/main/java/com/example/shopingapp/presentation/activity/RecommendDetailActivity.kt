@@ -15,7 +15,7 @@ import com.example.shopingapp.databinding.ActivityRecommendDetailBinding
 import com.example.shopingapp.presentation.adapter.PicAdapter
 import com.example.shopingapp.presentation.adapter.SelectModelAdapter
 
-class RecommendDetailActivity : AppCompatActivity() {
+class RecommendDetailActivity : BasicActivity() {
     private lateinit var binding: ActivityRecommendDetailBinding
     private lateinit var item: ItemsModel
     private var numberOrder = 1
@@ -58,7 +58,7 @@ class RecommendDetailActivity : AppCompatActivity() {
 
         binding.titleTxt.text = item.title
         binding.descriptionTxt.text = item.description
-        binding.priceTxt.text = "$${item.price}"
+        binding.priceTxt.text = "TL${item.price}"
         binding.ratingTxt.text = "${item.rating} Yıldız"
 
         binding.addToCartBtn.setOnClickListener {

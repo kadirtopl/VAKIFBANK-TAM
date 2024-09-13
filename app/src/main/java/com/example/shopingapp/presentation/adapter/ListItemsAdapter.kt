@@ -10,8 +10,8 @@ import com.example.shopingapp.data.model.ItemsModel
 import com.example.shopingapp.databinding.ViewholderRecommendedBinding
 import com.example.shopingapp.presentation.activity.RecommendDetailActivity
 
-class RecommendedAdapter(private val items: List<ItemsModel>) :
-    RecyclerView.Adapter<RecommendedAdapter.ViewHolder>() {
+class ListItemsAdapter(private val items: List<ItemsModel>) :
+    RecyclerView.Adapter<ListItemsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ViewholderRecommendedBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -30,7 +30,7 @@ class RecommendedAdapter(private val items: List<ItemsModel>) :
 
         with(holder.binding) {
             tittleTxt.text = item.title
-            priceTxt.text = "TL${item.price} "
+            priceTxt.text = "TL${item.price}"
             ratingTxt.text = item.rating.toString()
 
             Glide.with(holder.itemView.context)
@@ -39,7 +39,7 @@ class RecommendedAdapter(private val items: List<ItemsModel>) :
 
             root.setOnClickListener {
                 val intent = Intent(holder.itemView.context, RecommendDetailActivity::class.java).apply {
-                    putExtra("object", item)
+                    putExtra("object", item)  // items modelini Parcelable olarak yolluyoruz
                 }
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
             }
