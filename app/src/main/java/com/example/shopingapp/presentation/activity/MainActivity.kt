@@ -41,8 +41,20 @@ class MainActivity : BasicActivity() {
 
             chatBot.setOnClickListener {
                 val url = "https://poe.com/DPU-BOTS"
-                val intent = Intent(this@MainActivity, WebView::class.java)
+                val intent = Intent(this@MainActivity, WebViewActivity::class.java)
                 intent.putExtra("URL", url)
+                startActivity(intent)
+            }
+            discoverBtn.setOnClickListener{
+                val intent=Intent(this@MainActivity,DiscoverActivity::class.java)
+                startActivity(intent)
+            }
+            allTxt.setOnClickListener{
+                val intent=Intent(this@MainActivity,DiscoverActivity::class.java)
+                startActivity(intent)
+            }
+            all2Txt.setOnClickListener{
+                val intent=Intent(this@MainActivity,DiscoverActivity::class.java)
                 startActivity(intent)
             }
 

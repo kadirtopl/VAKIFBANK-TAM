@@ -126,7 +126,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/all2Txt"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:text="Hepsini Gör"
@@ -179,7 +179,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-
+                    android:id="@+id/allTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/see_all"
@@ -238,6 +238,7 @@
                 android:layout_marginBottom="8dp">
 
                 <LinearLayout
+                    android:id="@+id/discoverBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
