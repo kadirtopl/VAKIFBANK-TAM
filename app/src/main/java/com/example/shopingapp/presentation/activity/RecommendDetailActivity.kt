@@ -68,7 +68,8 @@ class RecommendDetailActivity : BasicActivity() {
 
         binding.backBtn.setOnClickListener { finish() }
         binding.cartBtn.setOnClickListener {
-            // Sepete git veya başka bir işlem yapılabilir
+            intent=Intent(this@RecommendDetailActivity,CartActvivity::class.java)
+            startActivity(intent)
         }
     }
 }

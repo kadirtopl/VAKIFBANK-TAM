@@ -37,7 +37,7 @@ class SelectModelAdapter(val items: MutableList<String>) :
         // Eğer pozisyon seçiliyse arka planı ve metin rengini günceller
         if (selectedPosition == position) {
             holder.binding.modelLayout.setBackgroundResource(R.drawable.green_bg_selected)
-            holder.binding.modelTxt.setTextColor(context.resources.getColor(R.color.green))
+            holder.binding.modelTxt.setTextColor(context.resources.getColor(R.color.yellow))
         } else {
             // Seçili değilse  varsayılan yapar
             holder.binding.modelLayout.setBackgroundResource(R.drawable.grey_bg)

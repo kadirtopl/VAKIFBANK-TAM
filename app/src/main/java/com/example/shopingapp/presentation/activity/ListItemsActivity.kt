@@ -12,7 +12,7 @@ import com.example.shopingapp.presentation.adapter.ListItemsAdapter
 import com.example.shopingapp.presentation.viewModel.MainViewModel
 
 
-class ListItemsActivity : AppCompatActivity() {
+class ListItemsActivity : BasicActivity() {
 
     private lateinit var binding: ActivityListItemsBinding
     private val viewModel: MainViewModel by viewModels() // ViewModel nesnesi, veri yönetimi için kullanılır

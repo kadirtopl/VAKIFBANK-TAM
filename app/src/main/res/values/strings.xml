@@ -11,6 +11,9 @@
 
     <string name="signing">Zaten bir hesabınız var mı?<font color="#FFB90F"> Giriş Yapın</font></string>
 
+    <string name="poe">https://poe.com/DPU-BOTS</string>
+
+
     <string name="let_s_get_started">Hadi Başlayalım</string>
     <string name="recommendation">Tavsiye</string>
     <string name="see_all">Hepsini Gör</string>

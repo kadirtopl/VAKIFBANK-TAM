@@ -10,15 +10,22 @@ import com.example.shopingapp.R
 import com.example.shopingapp.databinding.ActivityIntroBinding
 
 class IntroActivity : BasicActivity() {
-    private  lateinit var  binding: ActivityIntroBinding
+    private lateinit var binding: ActivityIntroBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityIntroBinding.inflate(layoutInflater)
+        binding = ActivityIntroBinding.inflate(layoutInflater)
         setContentView(binding.root)
-binding.apply {
-    startBtn.setOnClickListener {
-        startActivity(Intent(this@IntroActivity,MainActivity::class.java))
-    }
-}
+        binding.apply {
+            startBtn.setOnClickListener {
+                startActivity(Intent(this@IntroActivity, SignupActvitiy::class.java))
+            }
+            binding.apply {
+                textLgn.setOnClickListener{
+                    startActivity(Intent(this@IntroActivity,LoginActivity::class.java))
+
+
+                }
+            }
+        }
     }
 }
