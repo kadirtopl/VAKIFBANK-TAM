@@ -191,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_weight="1"
-                            android:text="Nakit"
+                            android:text="Kapıda Ödeme"
                             android:textColor="@color/green"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -236,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_weight="1"
-                            android:text="Bankaya transfer"
+                            android:text="Kredi Kartı"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
                     </LinearLayout>

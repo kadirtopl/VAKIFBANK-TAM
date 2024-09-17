@@ -293,17 +293,16 @@
                     android:layout_width="0dp"
                     android:id="@+id/chatBot"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.21"
+                    android:layout_weight="0.25"
                     android:orientation="vertical">
 
                     <ImageView
 
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:scaleType="fitCenter"
                         android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"
-                        app:srcCompat="@drawable/weq" />
+                        app:srcCompat="@drawable/weqq" />
 
                     <TextView
 

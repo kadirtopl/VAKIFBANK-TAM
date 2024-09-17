@@ -3,13 +3,11 @@ package com.example.shopingapp.presentation.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.shopingapp.R
 import com.example.shopingapp.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import android.util.Patterns
 
 class LoginActivity : BasicActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -26,9 +24,9 @@ class LoginActivity : BasicActivity() {
             val email = binding.emailInput.text.toString()
             val pass = binding.passwordInput.text.toString()
 
-            if (email.isNotEmpty() && pass.isNotEmpty()) {
+            if (validateInputs(email, pass)) {
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {1
+                    if (task.isSuccessful) {
                         // Giriş başarılı ise MainActivity'ye geç
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
@@ -39,9 +37,29 @@ class LoginActivity : BasicActivity() {
                         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
                     }
                 }
-            } else {
-                Toast.makeText(this, "E-posta ve şifre alanları boş olamaz", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun validateInputs(email: String, pass: String): Boolean {
+        return when {
+            email.isEmpty() -> {
+                Toast.makeText(this, "E-posta adresi boş olamaz", Toast.LENGTH_SHORT).show()
+                false
+            }
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                Toast.makeText(this, "Geçersiz e-posta adresi", Toast.LENGTH_SHORT).show()
+                false
+            }
+            pass.isEmpty() -> {
+                Toast.makeText(this, "Şifre boş olamaz", Toast.LENGTH_SHORT).show()
+                false
+            }
+            pass.length < 6 -> {
+                Toast.makeText(this, "Şifre en az 6 karakter uzunluğunda olmalıdır", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
         }
     }
 }
