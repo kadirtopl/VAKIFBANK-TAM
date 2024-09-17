@@ -57,6 +57,10 @@ class MainActivity : BasicActivity() {
                 val intent=Intent(this@MainActivity,DiscoverActivity::class.java)
                 startActivity(intent)
             }
+            searchBtn.setOnClickListener{
+                val intent=Intent(this@MainActivity,SearchActivity::class.java)
+                startActivity(intent)
+            }
 
         }
     }

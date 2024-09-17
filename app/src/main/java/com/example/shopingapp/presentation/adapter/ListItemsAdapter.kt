@@ -3,15 +3,21 @@ package com.example.shopingapp.presentation.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shopingapp.data.model.ItemsModel
 import com.example.shopingapp.databinding.ViewholderRecommendedBinding
 import com.example.shopingapp.presentation.activity.RecommendDetailActivity
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ListItemsAdapter(private val items: List<ItemsModel>) :
-    RecyclerView.Adapter<ListItemsAdapter.ViewHolder>() {
+class ListItemsAdapter(private var items: List<ItemsModel>) :
+    RecyclerView.Adapter<ListItemsAdapter.ViewHolder>(), Filterable {
+
+    private var filteredItems: List<ItemsModel> = ArrayList(items)
 
     inner class ViewHolder(val binding: ViewholderRecommendedBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -26,7 +32,7 @@ class ListItemsAdapter(private val items: List<ItemsModel>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        val item = filteredItems[position]
 
         with(holder.binding) {
             tittleTxt.text = item.title
@@ -46,5 +52,35 @@ class ListItemsAdapter(private val items: List<ItemsModel>) :
         }
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = filteredItems.size
+
+    fun updateData(newItems: List<ItemsModel>) {
+        items = newItems
+        filteredItems = newItems
+        notifyDataSetChanged()
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filteredList = if (constraint.isNullOrEmpty()) {
+                    items
+                } else {
+                    val query = constraint.toString().lowercase(Locale.getDefault())
+                    items.filter {
+                        it.title.lowercase(Locale.getDefault()).contains(query) ||
+                                it.price.toString().contains(query) ||
+                                it.rating.toString().contains(query)
+                    }
+                }
+                return FilterResults().apply { values = filteredList }
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredItems = results?.values as List<ItemsModel>
+                notifyDataSetChanged()
+            }
+        }
+    }
 }

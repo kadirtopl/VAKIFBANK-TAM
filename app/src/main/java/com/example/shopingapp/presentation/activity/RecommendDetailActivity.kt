@@ -24,7 +24,7 @@ class RecommendDetailActivity : BasicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecommendDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root) // Düzgün binding ile setContentView
+        setContentView(binding.root)
         managmentCart = ManagmentCart(this)
 
         getBundle()

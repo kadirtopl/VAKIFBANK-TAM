@@ -11,7 +11,7 @@ import com.example.shopingapp.databinding.ActivityDiscoverActivityBinding
 import com.example.shopingapp.presentation.adapter.ListItemsAdapter
 import com.example.shopingapp.presentation.viewModel.MainViewModel
 
-class DiscoverActivity : AppCompatActivity() {
+class DiscoverActivity : BasicActivity() {
 
     private lateinit var binding: ActivityDiscoverActivityBinding
     private val viewModel: MainViewModel by viewModels() // ViewModel nesnesini burada doğru bir şekilde alıyoruz

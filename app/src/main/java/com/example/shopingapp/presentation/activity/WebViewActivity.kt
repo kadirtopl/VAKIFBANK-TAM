@@ -7,7 +7,7 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shopingapp.databinding.ActivityWebViewBinding
 
-class WebViewActivity : AppCompatActivity() {
+class WebViewActivity : BasicActivity() {
 
     private lateinit var binding: ActivityWebViewBinding
 
