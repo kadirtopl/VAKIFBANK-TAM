@@ -25,7 +25,7 @@
             android:name=".presentation.activity.WebView"
             android:exported="false" />
         <activity
-            android:name=".presentation.activity.IntroActivity"
+            android:name=".presentation.activity.MainActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.activity.ListItemsActivity"
@@ -44,7 +44,7 @@
             android:name=".presentation.activity.BasicActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.activity.MainActivity"
+            android:name=".presentation.activity.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

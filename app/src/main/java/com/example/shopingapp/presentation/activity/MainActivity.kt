@@ -40,7 +40,7 @@ class MainActivity : BasicActivity() {
             }
 
             chatBot.setOnClickListener {
-                val url = "https://poe.com/DPU-BOTS"
+                val url = "https://poe.com/VAKIFBANK-BOT"
                 val intent = Intent(this@MainActivity, WebViewActivity::class.java)
                 intent.putExtra("URL", url)
                 startActivity(intent)
