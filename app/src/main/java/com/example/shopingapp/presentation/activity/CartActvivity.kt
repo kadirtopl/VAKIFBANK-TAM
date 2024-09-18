@@ -70,11 +70,11 @@ class CartActvivity : BasicActivity() {
                     ColorStateList.valueOf(
                         ContextCompat.getColor(
                             this@CartActvivity,
-                            R.color.yellow
+                            R.color.black
                         )
                     ) // İkon rengini sarı yap
-                methodTitle1.setTextColor(getResources().getColor(R.color.yellow)) // Başlık rengini sarı yap
-                methodSubtitle1.setTextColor(getResources().getColor(R.color.yellow)) // Alt başlık rengini sarı yap
+                methodTitle1.setTextColor(getResources().getColor(R.color.black)) // Başlık rengini sarı yap
+                methodSubtitle1.setTextColor(getResources().getColor(R.color.black)) // Alt başlık rengini sarı yap
 
                 method2.setBackgroundResource(R.drawable.grey_bg_selected) // Yöntem 2'yi gri arka plan yap
                 methodIc2.imageTintList =
@@ -85,7 +85,7 @@ class CartActvivity : BasicActivity() {
                         )
                     ) // İkon rengini siyah yap
                 methodTitle2.setTextColor(getResources().getColor(R.color.black)) // Başlık rengini siyah yap
-                methodSubtitle2.setTextColor(getResources().getColor(R.color.grey)) // Alt başlık rengini gri yap
+                methodSubtitle2.setTextColor(getResources().getColor(R.color.black)) // Alt başlık rengini gri yap
             }
 
             method2.setOnClickListener {
@@ -94,11 +94,11 @@ class CartActvivity : BasicActivity() {
                     ColorStateList.valueOf(
                         ContextCompat.getColor(
                             this@CartActvivity,
-                            R.color.yellow
+                            R.color.black
                         )
                     ) // İkon rengini sarı yap
-                methodTitle2.setTextColor(getResources().getColor(R.color.yellow)) // Başlık rengini sarı yap
-                methodSubtitle2.setTextColor(getResources().getColor(R.color.yellow)) // Alt başlık rengini sarı yap
+                methodTitle2.setTextColor(getResources().getColor(R.color.black)) // Başlık rengini sarı yap
+                methodSubtitle2.setTextColor(getResources().getColor(R.color.black)) // Alt başlık rengini sarı yap
 
                 method1.setBackgroundResource(R.drawable.grey_bg_selected) // Yöntem 1'i gri arka plan yap
                 methodIc1.imageTintList =
@@ -109,7 +109,7 @@ class CartActvivity : BasicActivity() {
                         )
                     ) // İkon rengini siyah yap
                 methodTitle1.setTextColor(getResources().getColor(R.color.black)) // Başlık rengini siyah yap
-                methodSubtitle1.setTextColor(getResources().getColor(R.color.grey)) // Alt başlık rengini gri yap
+                methodSubtitle1.setTextColor(getResources().getColor(R.color.black)) // Alt başlık rengini gri yap
             }
         }
     }

@@ -20,6 +20,7 @@ class RecommendDetailActivity : BasicActivity() {
     private lateinit var item: ItemsModel
     private var numberOrder = 1
     private lateinit var managmentCart: ManagmentCart
+    private var isFavorite = false // Favori durumunu takip et
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,7 @@ class RecommendDetailActivity : BasicActivity() {
 
         getBundle()
         initList()
+        setupFavoriteButton()
     }
 
     private fun initList() {
@@ -68,8 +70,19 @@ class RecommendDetailActivity : BasicActivity() {
 
         binding.backBtn.setOnClickListener { finish() }
         binding.cartBtn.setOnClickListener {
-            intent=Intent(this@RecommendDetailActivity,CartActvivity::class.java)
+            intent = Intent(this@RecommendDetailActivity, CartActvivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun setupFavoriteButton() {
+        binding.favBtn.setOnClickListener {
+            isFavorite = !isFavorite // Favori durumunu değiştir
+            if (isFavorite) {
+                binding.favBtn.setImageResource(R.drawable.hearts) // Doldurulmuş kalp simgesi
+            } else {
+                binding.favBtn.setImageResource(R.drawable.fav_icon) // Boş kalp simgesi
+            }
         }
     }
 }

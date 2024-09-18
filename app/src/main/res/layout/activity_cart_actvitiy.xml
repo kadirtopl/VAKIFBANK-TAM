@@ -246,8 +246,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Login to your online account
-and make payment"
+                        android:text="Kredi kartıyla Ödeme Yapabilirsiniz"
                         android:textColor="@color/darkGrey"
                         android:textSize="10sp" />
                 </LinearLayout>
