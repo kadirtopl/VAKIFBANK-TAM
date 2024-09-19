@@ -61,6 +61,10 @@ class MainActivity : BasicActivity() {
                 val intent=Intent(this@MainActivity,SearchActivity::class.java)
                 startActivity(intent)
             }
+            orderBtn.setOnClickListener{
+                val intent=Intent(this@MainActivity,OrderHistoryActivity::class.java)
+                startActivity(intent)
+            }
 
         }
     }

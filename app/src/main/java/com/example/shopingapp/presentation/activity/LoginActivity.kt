@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.shopingapp.R
 import com.example.shopingapp.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Patterns
 
 class LoginActivity : BasicActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +21,7 @@ class LoginActivity : BasicActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         binding.loginButton.setOnClickListener {
             val email = binding.emailInput.text.toString()
@@ -27,10 +30,11 @@ class LoginActivity : BasicActivity() {
             if (validateInputs(email, pass)) {
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Giriş başarılı ise MainActivity'ye geç
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish() // Bu Activity'yi kapat, böylece geri butonuyla tekrar açılmaz
+                        // Giriş başarılı ise kullanıcının bilgilerini Firestore'dan çek
+                        val userId = firebaseAuth.currentUser?.uid
+                        if (userId != null) {
+                            getUserData(userId)
+                        }
                     } else {
                         // Hata durumunda kullanıcıya hata mesajı göster
                         val errorMessage = task.exception?.localizedMessage ?: "Giriş yapılamadı"
@@ -61,5 +65,27 @@ class LoginActivity : BasicActivity() {
             }
             else -> true
         }
+    }
+
+    private fun getUserData(userId: String) {
+        firestore.collection("users").document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val email = document.getString("email")
+                    val name = document.getString("name")
+                    val surname = document.getString("surname")
+                    // Kullanıcı bilgilerini kullanarak işlem yapabilirsiniz
+                    Toast.makeText(this, "Giriş başarılı: $name $surname", Toast.LENGTH_SHORT).show()
+
+                    // MainActivity'ye geçiş yap
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish() // Bu Activity'yi kapat, böylece geri butonuyla tekrar açılmaz
+                } else {
+                    Toast.makeText(this, "Kullanıcı bilgileri bulunamadı", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Hata: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }

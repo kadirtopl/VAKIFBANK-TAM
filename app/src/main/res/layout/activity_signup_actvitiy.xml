@@ -5,9 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activity.SignupActvitiy">
-
-
+    tools:context=".presentation.activity.SignupActivity">
 
     <ImageView
         android:id="@+id/avatarImageView"
@@ -39,11 +37,14 @@
             android:gravity="center_vertical"
             android:hint="İsim"
             android:paddingLeft="5dp"
-
             android:padding="7dp"
             android:background="@drawable/text_input_background"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
+            android:maxLines="1"
+            android:inputType="text"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -59,8 +60,11 @@
             android:background="@drawable/text_input_background"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
+            android:maxLines="1"
+            android:inputType="text"
             android:paddingLeft="5dp"
-
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nameInput" />
@@ -71,7 +75,6 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:paddingLeft="5dp"
-
             android:layout_marginTop="16dp"
             android:hint="Email"
             android:padding="7dp"
@@ -79,6 +82,9 @@
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
+            android:maxLines="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/surnameInput" />
@@ -96,6 +102,9 @@
             android:inputType="textPassword"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
+            android:maxLines="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emailInput" />
@@ -129,5 +138,4 @@
             app:layout_constraintTop_toBottomOf="@id/registerButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
