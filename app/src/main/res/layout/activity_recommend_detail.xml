@@ -151,11 +151,10 @@
                     style="@android:style/Widget.Button"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Satın Al" />
+                    android:text="Sepete Ekle" />
 
                 <ImageButton
                     android:id="@+id/cartBtn"

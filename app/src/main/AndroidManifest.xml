@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ShopingApp"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.activity.AddressesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.IntroActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.activity.OrderDetailActivity"
             android:exported="false" />
         <activity
@@ -30,7 +36,6 @@
         <activity
             android:name=".presentation.activity.WebView"
             android:exported="false" />
-
         <activity
             android:name=".presentation.activity.ListItemsActivity"
             android:exported="false" />
@@ -38,13 +43,12 @@
             android:name=".presentation.activity.RecommendDetailActivity"
             android:exported="false" />
         <activity
-
             android:name=".presentation.activity.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".presentation.activity.IntroActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".presentation.activity.MainActivity"
+            android:exported="true" />
         <activity
             android:name=".presentation.activity.SignupActvitiy"
             android:exported="false" />
@@ -52,9 +56,9 @@
             android:name=".presentation.activity.BasicActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.activity.MainActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            android:exported="true">
+            android:name=".presentation.activity.ProfileActivity"
+            android:exported="true"
+       >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,7 +66,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.activity.CartActvivity"
+            android:name=".presentation.activity.CartActivity"
             android:exported="false" />
     </application>
 

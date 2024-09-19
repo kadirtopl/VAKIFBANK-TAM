@@ -54,10 +54,13 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //YENİ EKLENENLER
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.google.code.gson:gson:2.9.1")
+    implementation ("com.squareup.picasso:picasso:2.71828")
+
     implementation("com.tbuonomo:dotsindicator:5.0")
 }

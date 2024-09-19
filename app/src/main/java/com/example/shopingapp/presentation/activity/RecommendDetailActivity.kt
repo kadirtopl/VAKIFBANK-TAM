@@ -2,10 +2,6 @@ package com.example.shopingapp.presentation.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.project1762.Helper.ManagmentCart
@@ -70,7 +66,7 @@ class RecommendDetailActivity : BasicActivity() {
 
         binding.backBtn.setOnClickListener { finish() }
         binding.cartBtn.setOnClickListener {
-            intent = Intent(this@RecommendDetailActivity, CartActvivity::class.java)
+            intent = Intent(this@RecommendDetailActivity, CartActivity::class.java)
             startActivity(intent)
         }
     }

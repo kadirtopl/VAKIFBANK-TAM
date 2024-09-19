@@ -125,12 +125,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/all2Txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    android:text="Hepsini Gör"
-                    android:textColor="@color/yellow" />
+
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -311,6 +306,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:id="@+id/historyBtn"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
                     android:orientation="vertical">
@@ -318,7 +314,6 @@
                     <ImageView
 
                         android:layout_width="25dp"
-                        android:id="@+id/orderBtn"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"
@@ -344,6 +339,7 @@
                     <ImageView
 
                         android:layout_width="25dp"
+                        android:id="@+id/profileBtn"
                         android:layout_height="25dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"

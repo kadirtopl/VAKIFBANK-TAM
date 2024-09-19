@@ -6,12 +6,14 @@ import android.os.Parcelable
 data class OrderModel(
     var items: List<ItemsModel> = listOf(),
     var totalAmount: Double = 0.0,
-    var orderDate: String = ""
+    var orderDate: String = "",
+    var paymentMethod: String = ""
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.createTypedArrayList(ItemsModel.CREATOR) ?: listOf(),
         parcel.readDouble(),
+        parcel.readString() ?: "",
         parcel.readString() ?: ""
     )
 
@@ -19,6 +21,7 @@ data class OrderModel(
         parcel.writeTypedList(items)
         parcel.writeDouble(totalAmount)
         parcel.writeString(orderDate)
+        parcel.writeString(paymentMethod)
     }
 
     override fun describeContents(): Int = 0

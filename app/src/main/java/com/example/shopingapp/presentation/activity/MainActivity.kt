@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,10 +17,14 @@ import com.example.shopingapp.presentation.adapter.CategoryAdapter
 import com.example.shopingapp.presentation.adapter.RecommendedAdapter
 import com.example.shopingapp.presentation.adapter.SliderAdapter
 import com.example.shopingapp.presentation.viewModel.MainViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : BasicActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel = MainViewModel()
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,45 +32,79 @@ class MainActivity : BasicActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+
+        checkUserSession() // Oturum kontrolü yap
+
         initBanner()
         initCategory()
         initRecommeded()
 
         binding.apply {
             cartBtn.setOnClickListener {
-                val intent = Intent(this@MainActivity, CartActvivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this@MainActivity, CartActivity::class.java))
             }
-
             chatBot.setOnClickListener {
                 val url = "https://poe.com/VAKIFBANK-BOT"
                 val intent = Intent(this@MainActivity, WebViewActivity::class.java)
                 intent.putExtra("URL", url)
                 startActivity(intent)
             }
-            discoverBtn.setOnClickListener{
-                val intent=Intent(this@MainActivity,DiscoverActivity::class.java)
-                startActivity(intent)
+            discoverBtn.setOnClickListener {
+                startActivity(Intent(this@MainActivity, DiscoverActivity::class.java))
             }
-            allTxt.setOnClickListener{
-                val intent=Intent(this@MainActivity,DiscoverActivity::class.java)
-                startActivity(intent)
+            allTxt.setOnClickListener {
+                startActivity(Intent(this@MainActivity, DiscoverActivity::class.java))
             }
-            all2Txt.setOnClickListener{
-                val intent=Intent(this@MainActivity,DiscoverActivity::class.java)
-                startActivity(intent)
+            searchBtn.setOnClickListener {
+                startActivity(Intent(this@MainActivity, SearchActivity::class.java))
             }
-            searchBtn.setOnClickListener{
-                val intent=Intent(this@MainActivity,SearchActivity::class.java)
-                startActivity(intent)
+
+            historyBtn.setOnClickListener {
+                startActivity(Intent(this@MainActivity, OrderHistoryActivity::class.java))
             }
-            orderBtn.setOnClickListener{
-                val intent=Intent(this@MainActivity,OrderHistoryActivity::class.java)
-                startActivity(intent)
+            profileBtn.setOnClickListener {
+                startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
             }
+
+                // Çıkış yap butonuna tıklandığında
 
         }
     }
+
+    private fun checkUserSession() {
+        val user = auth.currentUser
+        if (user != null) {
+            displayUserFullName() // Kullanıcı oturumu açık ise ad ve soyadını göster
+        } else {
+            startActivity(Intent(this, LoginActivity::class.java)) // Giriş ekranına yönlendir
+            finish() // Mevcut aktiviteyi kapat
+        }
+    }
+
+    private fun displayUserFullName() {
+        val user = auth.currentUser
+        user?.let {
+            val userId = it.uid
+
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val name = document.getString("name")
+                        val surname = document.getString("surname")
+                        binding.firebaseAuth.text = "$name $surname" // Ad ve soyadı birleştir
+                    } else {
+                        binding.firebaseAuth.text = "Kullanıcı bilgileri bulunamadı"
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    binding.firebaseAuth.text = "Hata: ${exception.message}"
+                }
+        }
+    }
+
+
 
     private fun initRecommeded() {
         binding.progressBarRecommend.visibility = View.VISIBLE

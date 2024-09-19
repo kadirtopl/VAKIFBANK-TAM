@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.activity.CartActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -52,14 +53,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible"
-            tools:visibility="visible">
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/viewCart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +79,7 @@
                     android:id="@+id/totalFeeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$-"
+                    android:text="$0.00"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -102,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="$-"
+                    android:text="$0.00"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -111,7 +110,7 @@
 
                 <View
                     android:id="@+id/view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="37dp"
                     android:background="@color/grey"
@@ -134,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="$-"
+                    android:text="$0.00"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -156,7 +155,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:orientation="horizontal">
@@ -164,7 +163,7 @@
                 <LinearLayout
                     android:id="@+id/method1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="0.5"
                     android:background="@drawable/green_bg_selected"
@@ -175,14 +174,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/method_ic_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             app:srcCompat="@drawable/cash" />
 
                         <TextView
@@ -190,9 +187,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_weight="1"
                             android:text="Kapıda Ödeme"
-                            android:textColor="@color/green"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -202,14 +198,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/pay_cash_when_the_medicine_arrives_at_the_destination"
-                        android:textColor="@color/green"
+                        android:textColor="@color/black"
                         android:textSize="10sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/method2"
                     android:layout_width="0dp"
-                    android:layout_height="90dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="0.5"
                     android:background="@drawable/grey_bg_selected"
@@ -220,14 +216,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/method_ic_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             app:srcCompat="@drawable/bank" />
 
                         <TextView
@@ -235,7 +229,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_weight="1"
                             android:text="Kredi Kartı"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
@@ -277,7 +270,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
