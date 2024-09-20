@@ -1,33 +1,23 @@
-package com.example.shopingapp.presentation.adapter
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.shopingapp.data.model.OrderModel
 import com.example.shopingapp.databinding.ItemOrderBinding
 
 class OrderAdapter(
-    private val orders: List<OrderModel>,
+    private var orders: List<OrderModel>,
     private val onOrderClick: (OrderModel) -> Unit
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
+    private var originalOrders: List<OrderModel> = orders // Orijinal sipariş listesi
+
     inner class OrderViewHolder(private val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(order: OrderModel) {
+            binding.orderDateTxt.text = order.orderDate
             binding.tittleTxt.text = order.items.joinToString { it.title }
-            binding.ratingTxt.text = "5" // Rating bilgisini uygun bir şekilde ayarlayın
-            binding.priceTxt.text = "TL${order.totalAmount}"
-
-            // İlk ürünün görselini yükle
-            if (order.items.isNotEmpty()) {
-                Glide.with(binding.pic.context)
-                    .load(order.items[0].picUrl) // İlk ürün görseli
-                    .into(binding.pic)
-            }
-
-            binding.root.setOnClickListener {
-                onOrderClick(order) // Siparişe tıklandığında
-            }
+            binding.totalAmountTxt.text = "Toplam: TL ${order.totalAmount}"
+            // Diğer alanları bind et
+            binding.root.setOnClickListener { onOrderClick(order) }
         }
     }
 
@@ -41,4 +31,17 @@ class OrderAdapter(
     }
 
     override fun getItemCount(): Int = orders.size
+
+    // Filtreleme fonksiyonu
+    fun filter(query: String) {
+        orders = if (query.isEmpty()) {
+            originalOrders // Eğer sorgu boşsa orijinal listeyi döndür
+        } else {
+            originalOrders.filter { order ->
+                order.items.any { it.title.contains(query, ignoreCase = true) } || // Ürün ismi
+                        order.orderDate.contains(query, ignoreCase = true) // Sipariş tarihi
+            }
+        }
+        notifyDataSetChanged() // Listeyi güncelle
+    }
 }

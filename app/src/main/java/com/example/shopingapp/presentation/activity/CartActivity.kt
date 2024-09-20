@@ -1,6 +1,8 @@
 package com.example.shopingapp.presentation.activity
 
 import android.content.Intent
+import java.text.SimpleDateFormat
+import java.util.*
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -138,7 +140,7 @@ class CartActivity : BasicActivity() {
             val order = OrderModel(
                 items = managmentCart.getListCart(),
                 totalAmount = managmentCart.getTotalFee() + 10.0,
-                orderDate = System.currentTimeMillis().toString(),
+                orderDate = getCurrentDateTime(),
                 paymentMethod = selectedPaymentMethod
             )
 
@@ -161,5 +163,10 @@ class CartActivity : BasicActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+    private fun getCurrentDateTime(): String {
+        val currentDate = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
+        return dateFormat.format(currentDate)
     }
 }
