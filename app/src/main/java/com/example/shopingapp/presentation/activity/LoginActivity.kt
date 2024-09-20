@@ -23,12 +23,25 @@ class LoginActivity : BasicActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
+        // Kullanıcı giriş yapmış mı kontrol et
+        if (firebaseAuth.currentUser != null) {
+            // Eğer kullanıcı giriş yaptıysa, ana sayfaya geç
+            startActivity(Intent(this, MainActivity::class.java))
+            finish() // Bu Activity'yi kapat
+        }
+
         binding.loginButton.setOnClickListener {
             val email = binding.emailInput.text.toString()
             val pass = binding.passwordInput.text.toString()
 
             if (validateInputs(email, pass)) {
+                // Butonu devre dışı bırak
+                binding.loginButton.isEnabled = false
+
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
+                    // Butonu tekrar etkinleştir
+                    binding.loginButton.isEnabled = true
+
                     if (task.isSuccessful) {
                         // Giriş başarılı ise kullanıcının bilgilerini Firestore'dan çek
                         val userId = firebaseAuth.currentUser?.uid

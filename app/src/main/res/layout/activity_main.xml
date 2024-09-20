@@ -50,12 +50,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    app:srcCompat="@drawable/bell_icon" />
+
 
                 <ImageView
                     android:id="@+id/searchBtn"
@@ -333,13 +328,14 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/profileBtn"
+
                     android:layout_weight="0.2"
                     android:orientation="vertical">
 
                     <ImageView
 
                         android:layout_width="25dp"
-                        android:id="@+id/profileBtn"
                         android:layout_height="25dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"

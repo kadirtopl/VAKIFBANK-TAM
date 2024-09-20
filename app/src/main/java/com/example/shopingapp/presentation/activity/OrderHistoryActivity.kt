@@ -1,14 +1,15 @@
 package com.example.shopingapp.presentation.activity
 
-import OrderAdapter
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shopingapp.R
 import com.example.shopingapp.data.model.OrderModel
 import com.example.shopingapp.databinding.ActivityOrderHistoryBinding
+import com.example.shopingapp.presentation.adapter.OrderAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -18,7 +19,6 @@ class OrderHistoryActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private val ordersList = mutableListOf<OrderModel>()
-    private var filteredOrdersList = mutableListOf<OrderModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +32,17 @@ class OrderHistoryActivity : AppCompatActivity() {
         setupRecyclerView()
         fetchOrders()
 
-        // Arama butonuna tıklandığında
-        binding.searchBtn.setOnClickListener {
-            val query = binding.searchInput.text.toString().trim()
-            filterOrders(query)
-        }
+        // Arama işlemini dinlemek için TextWatcher ekle
+        binding.searchInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().trim()
+                orderAdapter.filter(query) // Filtreleme fonksiyonunu çağır
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     private fun setupRecyclerView() {
@@ -60,28 +66,12 @@ class OrderHistoryActivity : AppCompatActivity() {
                         val order = document.toObject(OrderModel::class.java)
                         ordersList.add(order)
                     }
-                    filteredOrdersList = ordersList.toMutableList() // Başlangıçta tüm siparişleri göster
-                    orderAdapter.notifyDataSetChanged()
+                    orderAdapter.notifyDataSetChanged() // Sipariş listesini güncelle
                 }
                 .addOnFailureListener { e ->
                     // Hata mesajı
                 }
         }
-    }
-
-    private fun filterOrders(query: String) {
-        filteredOrdersList = ordersList.filter { order ->
-            order.items.any { it.title.contains(query, ignoreCase = true) }
-        }.toMutableList()
-
-        orderAdapter = OrderAdapter(filteredOrdersList) { order ->
-            // Sipariş detaylarına git
-            val intent = Intent(this, OrderDetailActivity::class.java)
-            intent.putExtra("order", order)
-            startActivity(intent)
-        }
-        binding.orderRecylerView.adapter = orderAdapter
-        orderAdapter.notifyDataSetChanged()
     }
 
     private fun displayUserFullName() {

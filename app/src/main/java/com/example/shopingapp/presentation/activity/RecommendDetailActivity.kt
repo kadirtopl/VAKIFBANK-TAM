@@ -26,7 +26,6 @@ class RecommendDetailActivity : BasicActivity() {
 
         getBundle()
         initList()
-        setupFavoriteButton()
     }
 
     private fun initList() {
@@ -71,14 +70,5 @@ class RecommendDetailActivity : BasicActivity() {
         }
     }
 
-    private fun setupFavoriteButton() {
-        binding.favBtn.setOnClickListener {
-            isFavorite = !isFavorite // Favori durumunu değiştir
-            if (isFavorite) {
-                binding.favBtn.setImageResource(R.drawable.hearts) // Doldurulmuş kalp simgesi
-            } else {
-                binding.favBtn.setImageResource(R.drawable.fav_icon) // Boş kalp simgesi
-            }
-        }
-    }
+
 }

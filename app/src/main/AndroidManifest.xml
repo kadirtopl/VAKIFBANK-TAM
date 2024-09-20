@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -8,15 +7,19 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/vakifbank"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopingApp"
         tools:targetApi="31">
+
+        <activity
+            android:name=".presentation.activity.OrderConfirmationActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.activity.AddressesActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.activity.IntroActivity"
+            android:name=".presentation.activity.MainActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.activity.OrderDetailActivity"
@@ -45,22 +48,22 @@
         <activity
             android:name=".presentation.activity.LoginActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.activity.MainActivity"
+            android:name=".presentation.activity.OrderHistoryActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.activity.SignupActvitiy"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".presentation.activity.BasicActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.activity.OrderHistoryActivity"
+            android:name=".presentation.activity.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

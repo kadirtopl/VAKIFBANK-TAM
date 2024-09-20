@@ -39,7 +39,7 @@ class OrderHistoryAdapter(private val orderList: List<OrderModel>) :
         holder.priceTxt.text = "TL${order.totalAmount}" // Fiyat
         holder.ratingTxt.text = "5" // Örnek rating
         // Görseli yükle (örneğin bir placeholder kullan)
-        holder.pic.setImageResource(R.drawable.hearts) // Placeholder ekleyebilirsin
+        holder.pic.setImageResource(R.drawable.cash) // Placeholder ekleyebilirsin
     }
 
     override fun getItemCount(): Int = orderList.size

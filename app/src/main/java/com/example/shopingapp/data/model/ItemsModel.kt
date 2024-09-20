@@ -8,9 +8,9 @@ data class ItemsModel(
     var description: String = "",
     var price: Double = 0.0,
     var rating: Double = 0.0,
-    var picUrl: List<String> = listOf(),
+    var picUrl: List<String> = listOf(), // Birden fazla resim URL'si
     var numberInCart: Int = 0,
-    var model: List<String> = listOf() // Yeni alan
+    var model: List<String> = listOf()
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
@@ -19,7 +19,7 @@ data class ItemsModel(
         parcel.readDouble(),
         parcel.createStringArrayList() ?: listOf(),
         parcel.readInt(),
-        parcel.createStringArrayList() ?: listOf() // Yeni alanı oku
+        parcel.createStringArrayList() ?: listOf()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -29,7 +29,7 @@ data class ItemsModel(
         parcel.writeDouble(rating)
         parcel.writeStringList(picUrl)
         parcel.writeInt(numberInCart)
-        parcel.writeStringList(model) // Yeni alanı yaz
+        parcel.writeStringList(model)
     }
 
     override fun describeContents(): Int = 0

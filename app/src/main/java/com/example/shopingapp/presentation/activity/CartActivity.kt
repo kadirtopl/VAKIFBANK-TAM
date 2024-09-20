@@ -1,13 +1,9 @@
 package com.example.shopingapp.presentation.activity
 
 import android.content.Intent
-import java.text.SimpleDateFormat
-import java.util.*
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.project1762.Helper.ChangeNumberItemsListener
 import com.example.project1762.Helper.ManagmentCart
@@ -18,12 +14,15 @@ import com.example.shopingapp.presentation.adapter.CartAdapter
 import com.example.shopingapp.presentation.adapter.AddressAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CartActivity : BasicActivity() {
     private lateinit var binding: ActivityCartActvitiyBinding
     private lateinit var managmentCart: ManagmentCart
     private var selectedPaymentMethod: String = ""
     private var selectedAddress: String = ""
+    private var isProcessingOrder = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +30,12 @@ class CartActivity : BasicActivity() {
         setContentView(binding.root)
 
         managmentCart = ManagmentCart(this)
+        binding.apply {
+            addressBtn.setOnClickListener {
+                val intent = Intent(this@CartActivity, AddressesActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         setVariable()
         initCartList()
@@ -89,10 +94,20 @@ class CartActivity : BasicActivity() {
         }
 
         binding.buyBtn.setOnClickListener {
+            if (isProcessingOrder) return@setOnClickListener // Eğer işlem devam ediyorsa çık
+
             if (selectedAddress.isNotEmpty() && selectedPaymentMethod.isNotEmpty()) {
+                isProcessingOrder = true // Sipariş işleme alındı
                 placeOrder()
             } else {
-                showToast("Lütfen bir adres ve ödeme yöntemi seçiniz.")
+                if (selectedAddress.isEmpty()) {
+                    showToast("Lütfen bir adres ekleyin veya seçin.")
+                    // Adres ekleme sayfasına yönlendir
+                    val intent = Intent(this, AddressesActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    showToast("Lütfen bir ödeme yöntemi seçiniz.")
+                }
             }
         }
 
@@ -137,11 +152,16 @@ class CartActivity : BasicActivity() {
     private fun placeOrder() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId != null) {
+            // Sepetteki ürünleri al
+            val cartItems = managmentCart.getListCart()
+
+            // Her bir ürün için ayrı sipariş oluştur
             val order = OrderModel(
-                items = managmentCart.getListCart(),
-                totalAmount = managmentCart.getTotalFee() + 10.0,
+                items = cartItems,
+                totalAmount = managmentCart.getTotalFee() + 10.0, // Toplam tutar
                 orderDate = getCurrentDateTime(),
-                paymentMethod = selectedPaymentMethod
+                paymentMethod = selectedPaymentMethod,
+                address = selectedAddress
             )
 
             FirebaseFirestore.getInstance()
@@ -150,20 +170,29 @@ class CartActivity : BasicActivity() {
                 .collection("orders")
                 .add(order)
                 .addOnSuccessListener { documentReference ->
-                    showToast("Sipariş başarıyla verildi: ${documentReference.id}")
-                    initCartList()
+                    showToast("Sipariş başarıyla verildi: ")
+                    managmentCart.clearCart() // Sepeti temizle
+                    navigateToOrderConfirmation() // Onay sayfasına yönlendir
                 }
                 .addOnFailureListener { e ->
                     showToast("Sipariş verirken hata: ${e.message}")
+                    isProcessingOrder = false // Hata durumunda işlemi iptal et
                 }
         } else {
             showToast("Kullanıcı oturumu açmamış.")
         }
     }
 
+    private fun navigateToOrderConfirmation() {
+        val intent = Intent(this, OrderConfirmationActivity::class.java)
+        startActivity(intent)
+        finish() // Bu activity'i kapat
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
     private fun getCurrentDateTime(): String {
         val currentDate = Calendar.getInstance().time
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())

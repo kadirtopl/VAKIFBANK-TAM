@@ -1,6 +1,10 @@
+package com.example.shopingapp.presentation.adapter
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.shopingapp.R
 import com.example.shopingapp.data.model.OrderModel
 import com.example.shopingapp.databinding.ItemOrderBinding
 
@@ -16,7 +20,17 @@ class OrderAdapter(
             binding.orderDateTxt.text = order.orderDate
             binding.tittleTxt.text = order.items.joinToString { it.title }
             binding.totalAmountTxt.text = "Toplam: TL ${order.totalAmount}"
-            // Diğer alanları bind et
+
+            // Resmi yükle
+            val imageUrl = order.items.firstOrNull()?.picUrl?.firstOrNull()
+            if (!imageUrl.isNullOrEmpty()) {
+                Glide.with(binding.root.context)
+                    .load(imageUrl)
+                    .into(binding.pic)
+            } else {
+                binding.pic.setImageResource(R.drawable.cash) // Yer tutucu resim
+            }
+
             binding.root.setOnClickListener { onOrderClick(order) }
         }
     }

@@ -20,6 +20,7 @@ class SignupActvitiy : BasicActivity() {
     private lateinit var binding: ActivitySignupActvitiyBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    private var isRegistering = false // Butona tıklamayı kontrol etmek için
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +31,15 @@ class SignupActvitiy : BasicActivity() {
         firestore = FirebaseFirestore.getInstance()
 
         binding.registerButton.setOnClickListener {
+            if (isRegistering) return@setOnClickListener // Eğer kayıt yapılıyorsa, çık
+
             val email = binding.emailInput.text.toString()
             val pass = binding.passwordInput.text.toString()
             val name = binding.nameInput.text.toString()
             val surname = binding.surnameInput.text.toString()
 
             if (validateInputs(email, pass, name, surname)) {
+                isRegistering = true // Kayıt işlemi başlıyor
                 registerUser(email, pass, name, surname)
             }
         }
@@ -78,6 +82,7 @@ class SignupActvitiy : BasicActivity() {
     private fun registerUser(email: String, password: String, name: String, surname: String) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
+                isRegistering = false // Kayıt işlemi tamamlandı
                 if (task.isSuccessful) {
                     val userId = firebaseAuth.currentUser?.uid ?: return@addOnCompleteListener
 

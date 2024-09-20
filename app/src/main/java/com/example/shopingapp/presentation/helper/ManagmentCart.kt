@@ -57,4 +57,10 @@ class ManagmentCart(val context: Context) {
         }
         return fee // Toplam ücreti döndürür
     }
+
+    // Sepeti temizler
+    fun clearCart() {
+        tinyDB.putListObject("CartList", arrayListOf()) // Sepeti temizlemek için boş bir liste kaydeder
+        Toast.makeText(context, "Sepet temizlendi", Toast.LENGTH_SHORT).show() // Kullanıcıya bilgi verir
+    }
 }

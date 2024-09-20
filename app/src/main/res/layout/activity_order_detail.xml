@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".presentation.activity.OrderDetailActivity">
 
     <ScrollView
@@ -14,14 +15,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
+                android:layout_marginTop="24dp"
+                android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:id="@+id/backBtn"
@@ -32,43 +32,90 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/back" />
 
-                <ImageView
-                    android:id="@+id/favBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/fav_icon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/titleTxt"
+                android:text="Ürün Başlığı"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="26sp"
+                android:textColor="@color/dark_blue"
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="2dp" />
+
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/grey_bg"
+                android:layout_marginTop="8dp"
+                android:padding="16dp" />
+
+            <TextView
+                android:id="@+id/priceTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/modelTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Model: "
+                android:textColor="@color/dark_gray"
+                android:textSize="20sp"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/orderDateTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sipariş Tarihi"
+                android:text="Sipariş Tarihi: "
+                android:textColor="@color/dark_gray"
+                android:textSize="20sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/addressTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sipariş Adresi: "
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_margin="16dp"/>
+                android:background="@drawable/grey_bg"
+
+                android:textSize="20sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:textStyle="italic"/>
 
             <TextView
                 android:id="@+id/totalAmountTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Toplam: TL"
+                android:textColor="@color/dark_gray"
+                android:textSize="20sp"
+                android:layout_marginBottom="8dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/descriptionTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_bg"
+                android:text="Ürün Açıklaması: Bu ürünün detaylı açıklaması burada yer alacak."
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp"/>
-
-            <LinearLayout
-                android:id="@+id/itemsLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="16dp">
-                <!-- Ürün detayları burada dinamik olarak eklenecek -->
-            </LinearLayout>
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="2dp"/>
 
         </LinearLayout>
     </ScrollView>
