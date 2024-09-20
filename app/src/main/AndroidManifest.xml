@@ -22,7 +22,7 @@
             android:name=".presentation.activity.OrderDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.activity.OrderHistoryActivity"
+            android:name=".presentation.activity.CartActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.activity.SearchActivity"
@@ -56,9 +56,8 @@
             android:name=".presentation.activity.BasicActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.activity.ProfileActivity"
-            android:exported="true"
-       >
+            android:name=".presentation.activity.OrderHistoryActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,7 +65,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.activity.CartActivity"
+            android:name=".presentation.activity.ProfileActivity"
             android:exported="false" />
     </application>
 

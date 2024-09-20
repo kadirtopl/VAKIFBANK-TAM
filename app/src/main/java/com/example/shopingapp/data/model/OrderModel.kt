@@ -7,14 +7,16 @@ data class OrderModel(
     var items: List<ItemsModel> = listOf(),
     var totalAmount: Double = 0.0,
     var orderDate: String = "",
-    var paymentMethod: String = ""
+    var paymentMethod: String = "",
+    var picUrl: String = "" // Yeni alan
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.createTypedArrayList(ItemsModel.CREATOR) ?: listOf(),
         parcel.readDouble(),
         parcel.readString() ?: "",
-        parcel.readString() ?: ""
+        parcel.readString() ?: "",
+        parcel.readString() ?: "" // Yeni alanı oku
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -22,6 +24,7 @@ data class OrderModel(
         parcel.writeDouble(totalAmount)
         parcel.writeString(orderDate)
         parcel.writeString(paymentMethod)
+        parcel.writeString(picUrl) // Yeni alanı yaz
     }
 
     override fun describeContents(): Int = 0

@@ -1,56 +1,56 @@
 package com.example.shopingapp.presentation.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shopingapp.R
-import com.example.shopingapp.data.model.ItemsModel
-import com.example.shopingapp.presentation.adapter.OrderAdapter
+import com.example.shopingapp.data.model.OrderModel
 import com.example.shopingapp.databinding.ActivityOrderHistoryBinding
-import com.google.firebase.database.*
+import com.example.shopingapp.presentation.adapter.OrderAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class OrderHistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrderHistoryBinding
-    private lateinit var database: DatabaseReference
-    private lateinit var orderList: MutableList<ItemsModel>
+    private lateinit var orderAdapter: OrderAdapter
+    private val ordersList = mutableListOf<OrderModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Firebase Database referansını al
-        database = FirebaseDatabase.getInstance().getReference("users") // "users" referansını al
-        orderList = mutableListOf()
-
-        // Siparişleri çek
+        setupRecyclerView()
         fetchOrders()
     }
 
-    private fun fetchOrders() {
-        // Kullanıcıların siparişlerini almak için her kullanıcıyı kontrol et
-        database.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                orderList.clear() // Önceki verileri temizle
-                for (userSnapshot in snapshot.children) {
-                    val ordersSnapshot = userSnapshot.child("orders") // Kullanıcının siparişlerini al
-                    for (orderSnapshot in ordersSnapshot.children) {
-                        val order = orderSnapshot.getValue(ItemsModel::class.java)
-                        order?.let { orderList.add(it) } // Veriyi listeye ekle
-                    }
-                }
-                setupRecyclerView() // RecyclerView'ı kur
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("OrderHistory", "Veri çekilirken hata: ${error.message}")
-            }
-        })
+    private fun setupRecyclerView() {
+        binding.orderRecyclerView.layoutManager = LinearLayoutManager(this)
+        orderAdapter = OrderAdapter(ordersList) { order ->
+            // Sipariş detaylarına git
+            val intent = Intent(this, OrderDetailActivity::class.java)
+            intent.putExtra("order", order)
+            startActivity(intent)
+        }
+        binding.orderRecyclerView.adapter = orderAdapter
     }
 
-    private fun setupRecyclerView() {
-        binding.viewList.layoutManager = LinearLayoutManager(this)
-        binding.viewList.adapter = OrderAdapter(orderList)
+    private fun fetchOrders() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null) {
+            FirebaseFirestore.getInstance().collection("users").document(userId).collection("orders")
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val order = document.toObject(OrderModel::class.java)
+                        ordersList.add(order)
+                    }
+                    orderAdapter.notifyDataSetChanged()
+                }
+                .addOnFailureListener { e ->
+                    // Hata mesajı
+                }
+        }
     }
 }

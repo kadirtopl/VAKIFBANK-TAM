@@ -13,13 +13,15 @@ import com.example.shopingapp.R
 import com.example.shopingapp.data.model.OrderModel
 import com.example.shopingapp.databinding.ActivityCartActvitiyBinding
 import com.example.shopingapp.presentation.adapter.CartAdapter
+import com.example.shopingapp.presentation.adapter.AddressAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CartActivity : BasicActivity() {
     private lateinit var binding: ActivityCartActvitiyBinding
     private lateinit var managmentCart: ManagmentCart
-    private var selectedPaymentMethod: String = "Kapıda Ödeme"
+    private var selectedPaymentMethod: String = ""
+    private var selectedAddress: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class CartActivity : BasicActivity() {
 
         setVariable()
         initCartList()
+        initAddressList()
         calculatorCart()
     }
 
@@ -43,10 +46,38 @@ class CartActivity : BasicActivity() {
         updateCartVisibility()
     }
 
-    private fun updateCartVisibility() {
-        with(binding) {
-            emptyTxt.visibility = if (managmentCart.getListCart().isEmpty()) View.VISIBLE else View.GONE
-            scrollView3.visibility = if (managmentCart.getListCart().isEmpty()) View.GONE else View.VISIBLE
+    private fun initAddressList() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null) {
+            FirebaseFirestore.getInstance().collection("users").document(userId).collection("addresses")
+                .get()
+                .addOnSuccessListener { documents ->
+                    val addresses = documents.map { it.getString("address") ?: "" }
+                    setupAddressRecyclerView(addresses)
+                }
+                .addOnFailureListener { e ->
+                    showToast("Adresleri yüklerken hata: ${e.message}")
+                }
+        }
+    }
+
+    private fun setupAddressRecyclerView(addresses: List<String>) {
+        binding.addressRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.addressRecyclerView.adapter = AddressAdapter(addresses) { address ->
+            selectedAddress = address
+            updateAddressSelection(addresses.indexOf(address))
+            showToast("Seçilen adres: $selectedAddress")
+        }
+    }
+
+    private fun updateAddressSelection(selectedIndex: Int) {
+        for (i in 0 until binding.addressRecyclerView.childCount) {
+            val child = binding.addressRecyclerView.getChildAt(i)
+            if (i == selectedIndex) {
+                child.setBackgroundResource(R.drawable.grey_bg_selected)
+            } else {
+                child.setBackgroundResource(R.drawable.grey_bg)
+            }
         }
     }
 
@@ -56,31 +87,30 @@ class CartActivity : BasicActivity() {
         }
 
         binding.buyBtn.setOnClickListener {
-            placeOrder()
+            if (selectedAddress.isNotEmpty() && selectedPaymentMethod.isNotEmpty()) {
+                placeOrder()
+            } else {
+                showToast("Lütfen bir adres ve ödeme yöntemi seçiniz.")
+            }
         }
 
-        binding.method1.setOnClickListener { updatePaymentMethodUI(binding.method1, binding.method2, "Kapıda Ödeme") }
-        binding.method2.setOnClickListener { updatePaymentMethodUI(binding.method2, binding.method1, "Kredi Kartı") }
+        binding.method1.setOnClickListener { selectPaymentMethod(binding.method1, "Kapıda Ödeme") }
+        binding.method2.setOnClickListener { selectPaymentMethod(binding.method2, "Kredi Kartı") }
     }
 
-    private fun updatePaymentMethodUI(selectedMethod: View, unselectedMethod: View, paymentMethod: String) {
+    private fun selectPaymentMethod(selectedMethod: View, paymentMethod: String) {
         selectedPaymentMethod = paymentMethod
-
-        // Seçilen yöntemin arka planını yeşil yap
-        selectedMethod.setBackgroundResource(R.drawable.green_bg_selected)
-        updateTextColor(selectedMethod, R.color.black)
-
-        // Diğer yöntemi gri yap
-        unselectedMethod.setBackgroundResource(R.drawable.grey_bg_selected)
-        updateTextColor(unselectedMethod, R.color.grey)
+        updatePaymentMethodSelection(selectedMethod)
     }
 
-    private fun updateTextColor(methodView: View, colorResId: Int) {
-        val title = methodView.findViewById<TextView>(R.id.methodTitle1) // methodTitle1 doğru isim mi kontrol edin
-        val subtitle = methodView.findViewById<TextView>(R.id.methodSubtitle1) // methodSubtitle1 doğru isim mi kontrol edin
+    private fun updatePaymentMethodSelection(selectedView: View) {
+        resetPaymentMethods()
+        selectedView.setBackgroundResource(R.drawable.grey_bg_selected)
+    }
 
-        title.setTextColor(ContextCompat.getColor(this, colorResId))
-        subtitle.setTextColor(ContextCompat.getColor(this, colorResId))
+    private fun resetPaymentMethods() {
+        binding.method1.setBackgroundResource(R.drawable.grey_bg)
+        binding.method2.setBackgroundResource(R.drawable.grey_bg)
     }
 
     private fun calculatorCart() {
@@ -92,6 +122,13 @@ class CartActivity : BasicActivity() {
             totalFeeTxt.text = "TL$itemTotal"
             deliveryTxt.text = "TL$delivery"
             totalTxt.text = "TL$total"
+        }
+    }
+
+    private fun updateCartVisibility() {
+        with(binding) {
+            emptyTxt.visibility = if (managmentCart.getListCart().isEmpty()) View.VISIBLE else View.GONE
+            scrollView3.visibility = if (managmentCart.getListCart().isEmpty()) View.GONE else View.VISIBLE
         }
     }
 

@@ -1,33 +1,24 @@
 package com.example.shopingapp.presentation.activity
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.shopingapp.R
 import com.example.shopingapp.data.model.OrderModel
-import com.example.shopingapp.databinding.ActivityOrderDetailBinding
 
 class OrderDetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityOrderDetailBinding
     private lateinit var order: OrderModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityOrderDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_order_detail)
 
-        getOrderData()
-        displayOrderDetails()
-    }
+        order = intent.getParcelableExtra("order") ?: return
 
-    private fun getOrderData() {
-        order = intent.getParcelableExtra("order") ?: run {
-            finish() // Eğer order null ise, Activity'yi kapat
-            return
-        }
-    }
+        // UI bileşenlerini güncelleyin
+        val totalAmountTxt = findViewById<TextView>(R.id.totalAmountTxt)
+        totalAmountTxt.text = "Toplam: TL${order.totalAmount}"
 
-    private fun displayOrderDetails() {
-        binding.orderDetailsTxt.text = order.items.joinToString(", ") { it.title }
-        binding.totalAmountTxt.text = "Toplam: TL${order.totalAmount}"
-        binding.orderDateTxt.text = order.orderDate
+        // Daha fazla detay ekleyebilirsiniz...
     }
 }
