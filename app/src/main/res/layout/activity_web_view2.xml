@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.activity.WebViewActivity">
 
+
     <!-- WebView, ekranın tamamını kaplayacak şekilde ayarlanmıştır -->
     <WebView
         android:id="@+id/webView"

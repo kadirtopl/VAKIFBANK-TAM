@@ -3,6 +3,7 @@ package com.example.shopingapp.presentation.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -67,6 +68,10 @@ class MainActivity : BasicActivity() {
             profileBtn.setOnClickListener {
                 startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
             }
+
+
+
+
 
                 // Çıkış yap butonuna tıklandığında
 

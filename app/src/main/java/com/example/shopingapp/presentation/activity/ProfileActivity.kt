@@ -21,7 +21,6 @@ class ProfileActivity : AppCompatActivity() {
         // Firebase Authentication nesnesini başlat
         auth = FirebaseAuth.getInstance()
 
-        // Butonlara tıklama olaylarını tanımla
         binding.addressButton.setOnClickListener {
             val intent = Intent(this, AddressesActivity::class.java)
             startActivity(intent)
@@ -34,6 +33,9 @@ class ProfileActivity : AppCompatActivity() {
 
         binding.logoutButton.setOnClickListener {
             logoutUser() // Çıkış işlemi
+        }
+        binding.backBtn.setOnClickListener{
+            finish()
         }
     }
 

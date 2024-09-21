@@ -27,10 +27,14 @@ class OrderHistoryActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
 
         displayUserFullName()
         setupRecyclerView()
         fetchOrders()
+
 
         // Arama işlemini dinlemek için TextWatcher ekle
         binding.searchInput.addTextChangedListener(object : TextWatcher {
@@ -44,6 +48,7 @@ class OrderHistoryActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
     }
+
 
     private fun setupRecyclerView() {
         binding.orderRecylerView.layoutManager = LinearLayoutManager(this)
