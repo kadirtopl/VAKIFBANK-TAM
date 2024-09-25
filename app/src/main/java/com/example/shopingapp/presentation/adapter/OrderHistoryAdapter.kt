@@ -31,6 +31,7 @@ class OrderHistoryAdapter(private val orderList: List<OrderModel>) :
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orderList[position]
         holder.orderDetailsTxt.text = "Sipariş: ${order.items.joinToString(", ") { it.title }}"
+
         holder.totalAmountTxt.text = "Toplam: TL${order.totalAmount}"
         holder.orderDateTxt.text = "Tarih: ${order.orderDate}"
 

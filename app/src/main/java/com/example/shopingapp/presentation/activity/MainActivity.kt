@@ -69,12 +69,6 @@ class MainActivity : BasicActivity() {
                 startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
             }
 
-
-
-
-
-                // Çıkış yap butonuna tıklandığında
-
         }
     }
 

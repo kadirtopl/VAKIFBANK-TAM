@@ -12,6 +12,7 @@ import com.example.shopingapp.databinding.ActivityOrderHistoryBinding
 import com.example.shopingapp.presentation.adapter.OrderAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class OrderHistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrderHistoryBinding
@@ -64,7 +65,8 @@ class OrderHistoryActivity : AppCompatActivity() {
     private fun fetchOrders() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId != null) {
-            FirebaseFirestore.getInstance().collection("users").document(userId).collection("orders")
+            FirebaseFirestore.getInstance().collection("users").document(userId).collection("orders").orderBy("orderDate",
+                Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
