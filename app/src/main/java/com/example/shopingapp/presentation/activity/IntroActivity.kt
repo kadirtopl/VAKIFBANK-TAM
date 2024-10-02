@@ -2,23 +2,35 @@ package com.example.shopingapp.presentation.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.shopingapp.R
+import com.google.firebase.auth.FirebaseAuth
 import com.example.shopingapp.databinding.ActivityIntroBinding
 
 class IntroActivity : BasicActivity() {
-    private  lateinit var  binding: ActivityIntroBinding
+    private lateinit var binding: ActivityIntroBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityIntroBinding.inflate(layoutInflater)
+        binding = ActivityIntroBinding.inflate(layoutInflater)
         setContentView(binding.root)
-binding.apply {
-    startBtn.setOnClickListener {
-        startActivity(Intent(this@IntroActivity,MainActivity::class.java))
-    }
-}
+
+        // Firebase Auth nesnesini başlat
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        // Kullanıcı giriş yapmış mı kontrol et
+        if (firebaseAuth.currentUser != null) {
+            // Eğer kullanıcı giriş yaptıysa, ana sayfaya geç
+            startActivity(Intent(this, MainActivity::class.java))
+            finish() // Bu Activity'yi kapat
+        }
+
+        binding.startBtn.setOnClickListener {
+            startActivity(Intent(this, SignupActvitiy::class.java))
+        }
+
+        binding.textLgn.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 }

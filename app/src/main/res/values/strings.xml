@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">project200.2</string>
+    <string name="app_name">Vakıfbank TAM</string>
     <string name="action_settings">Ayarlar</string>
-    <!-- Navigasyon için fragmentlerde kullanılan metinler -->
     <string name="first_fragment_label">Birinci Fragment</string>
     <string name="second_fragment_label">İkinci Fragment</string>
     <string name="next">Sonraki</string>
@@ -10,6 +9,9 @@
     <string name="intro_sub_title">Geniş bir dijital ürün yelpazesi keşfetmek için giriş yapın.\n Hesabınız yok mu?\n Şimdi kayıt olun ve kesintisiz bir \nve güvenli alışveriş deneyiminin tadını çıkarın</string>
 
     <string name="signing">Zaten bir hesabınız var mı?<font color="#FFB90F"> Giriş Yapın</font></string>
+
+    <string name="poe">https://poe.com/DPU-BOTS</string>
+
 
     <string name="let_s_get_started">Hadi Başlayalım</string>
     <string name="recommendation">Tavsiye</string>
